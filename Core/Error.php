@@ -58,7 +58,6 @@ class Error {
 
             error_log($message);
 
-            View::renderTemplate("$code.html.twig");
         }
     }
 }
