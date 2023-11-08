@@ -30,8 +30,6 @@ class HomeController extends \Core\View
      */
     public function index() {
 
-        var_dump($_ENV['DB_USER']);
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             $this->session->csrfToken === $_POST['csrfToken']) {
             $name = $_POST['name'];
