@@ -37,7 +37,7 @@ class Session
         return self::$instance;
     }
 
-    public function create($member): void
+    public function create(object $member): void
     {
         session_regenerate_id(true);
         $_SESSION['id'] = $member->id;

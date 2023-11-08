@@ -202,7 +202,7 @@ class ArticleController extends \Core\View
         }
     }
 
-    private function handleForm($article, $id = null): void
+    private function handleForm(object $article, int $id = null): void
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return;

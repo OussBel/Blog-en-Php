@@ -98,14 +98,14 @@ class ArticleManager extends DatabaseConnection
                 published_at = NOW()
                 WHERE article.id = :id";
 
-        $stmt = $this->save( $sql);
+        $stmt = $this->save($sql);
 
         $stmt->execute();
         return $stmt->rowCount() > 0;
 
     }
 
-    private function save($sql): bool|\PDOStatement
+    private function save(string $sql): bool|\PDOStatement
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
