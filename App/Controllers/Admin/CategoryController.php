@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers\Admin;
 
@@ -12,18 +12,19 @@ use App\Models\CategoryManager;
  *
  * This class handles the administration of categories.
  */
-
-class CategoryController extends \Core\View {
+class CategoryController extends \Core\View
+{
 
     private CategoryManager $categoryManager;
-    private $error;
+    private string $error;
 
     /**
      * CategoryController constructor.
      *
      * Initializes a new instance of the CategoryController class.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->categoryManager = new CategoryManager();
         LoginController::isAdmin();
     }
@@ -33,7 +34,8 @@ class CategoryController extends \Core\View {
      *
      * @return void
      */
-    public function index() {
+    public function index(): void
+    {
         $categories = $this->categoryManager->getCategories();
 
         parent::renderTemplate('category.html.twig', ['categories' => $categories]);
@@ -44,7 +46,8 @@ class CategoryController extends \Core\View {
      *
      * @return void
      */
-    public function add() {
+    public function add(): void
+    {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category = $_POST['name'];
@@ -77,7 +80,8 @@ class CategoryController extends \Core\View {
      * @param int $id The ID of the category to update.
      * @return void
      */
-    public function updateCategory($id) {
+    public function updateCategory(int $id): void
+    {
         $category = $this->categoryManager->getById($id);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -102,7 +106,7 @@ class CategoryController extends \Core\View {
 
         parent::renderTemplate('categoryForm.html.twig', [
             'category_name' => $category->name ?? '',
-            'error'         => $this->error,
+            'error' => $this->error,
         ]);
     }
 
@@ -112,7 +116,8 @@ class CategoryController extends \Core\View {
      * @param int $id The ID of the category to delete.
      * @return void
      */
-    public function confirmDeleteCategory($id) {
+    public function confirmDeleteCategory(int $id): void
+    {
         parent::renderTemplate('confirmDeleteCategory.html.twig', ['id' => $id]);
     }
 
@@ -122,7 +127,8 @@ class CategoryController extends \Core\View {
      * @param int $id The ID of the category to delete.
      * @return void
      */
-    public function deleteCategory($id) {
+    public function deleteCategory(int $id): void
+    {
         $category = $this->categoryManager->getById($id);
 
         if ($category->delete()) {

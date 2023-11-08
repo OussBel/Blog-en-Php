@@ -1,27 +1,29 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers;
 
 use App\Helpers\Session;
 use App\Helpers\Url;
-use App\Models\UserManager AS User;
+use App\Models\UserManager as User;
 use App\Validators\RegisterValidator;
 
 /**
  * Class RegisterController handles registration process
  */
-class RegisterController extends \Core\View {
+class RegisterController extends \Core\View
+{
 
-    private $errors = [];
+    private array $errors = [];
     private User $user;
     private Session $session;
 
     /**
      * Constructor initializes the user and the session
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->user = new User();
         $this->session = Session::getInstance();
     }
@@ -31,7 +33,8 @@ class RegisterController extends \Core\View {
      *
      * @return void
      */
-    public function addMember() {
+    public function addMember(): void
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST'
             && $this->session->csrfToken === $_POST['csrfToken']) {
             $name = $_POST['name'];
@@ -63,8 +66,8 @@ class RegisterController extends \Core\View {
 
         parent::renderTemplate('register.html.twig',
             [
-                'name'   => $name ?? '',
-                'email'  => $email ?? '',
+                'name' => $name ?? '',
+                'email' => $email ?? '',
                 'errors' => $this->errors,
             ]);
     }

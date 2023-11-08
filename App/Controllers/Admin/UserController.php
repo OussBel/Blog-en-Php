@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers\Admin;
 
@@ -12,16 +12,18 @@ use App\Models\UserManager;
  *
  * This class handles the administration of users.
  */
-class UserController extends \Core\View {
+class UserController extends \Core\View
+{
     private UserManager $userManager;
-    private $error;
+    private string $error;
 
     /**
      * UserController constructor.
      *
      * Initializes a new instance of the UserController class.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->userManager = new UserManager();
         LoginController::isAdmin();
     }
@@ -31,7 +33,8 @@ class UserController extends \Core\View {
      *
      * @return void
      */
-    public function index() {
+    public function index(): void
+    {
         $users = $this->userManager->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -56,8 +59,8 @@ class UserController extends \Core\View {
      *
      * @return void
      */
-    public function validate() {
-
+    public function validate(): void
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Url::redirect('/admin/user/validate');
         }

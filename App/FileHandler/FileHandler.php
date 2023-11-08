@@ -6,9 +6,9 @@ namespace App\FileHandler;
 class FileHandler
 {
 
-    public static $filename;
+    public static string $filename;
 
-    public static function create_filename($filename)
+    public static function createFilename($filename): string
     {
         $basename = pathinfo($filename, PATHINFO_FILENAME);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -18,7 +18,7 @@ class FileHandler
         return static::$filename = $filename;
     }
 
-    public static function addImage($upload_path)
+    public static function addImage($upload_path): bool
     {
         $destination = $upload_path . static::$filename;
         return move_uploaded_file($_FILES['image']['tmp_name'], $destination);

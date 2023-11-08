@@ -7,7 +7,7 @@
  *
  */
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers;
 
@@ -24,7 +24,7 @@ class ArticleController extends \Core\View
     private ArticleManager $articleManager;
     private CategoryManager $categoryManager;
     private CommentManager $commentsManager;
-    public $errors = [];
+    public array $errors = [];
 
     private CommentController $commentController;
 
@@ -32,7 +32,8 @@ class ArticleController extends \Core\View
      * Constructor. Initializes the article, category, and comment managers.
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->articleManager = new ArticleManager();
         $this->categoryManager = new CategoryManager();
         $this->commentsManager = new CommentManager();
@@ -45,7 +46,8 @@ class ArticleController extends \Core\View
      * @return void
      */
 
-    public function index() {
+    public function index(): void
+    {
 
         $articles = $this->articleManager->getAll();
 
@@ -60,7 +62,8 @@ class ArticleController extends \Core\View
      * @return void
      */
 
-    public function show($id) {
+    public function show(int $id): void
+    {
 
         $article = $this->articleManager->getById($id);
         if (!$article) {
@@ -85,9 +88,9 @@ class ArticleController extends \Core\View
         }
 
         parent::renderTemplate('article.html.twig', [
-            "article"  => $article,
+            "article" => $article,
             "comments" => $comments,
-            "errors"   => $this->errors,
+            "errors" => $this->errors,
         ]);
     }
 
@@ -99,7 +102,8 @@ class ArticleController extends \Core\View
      * @return void
      */
 
-    public function add() {
+    public function add(): void
+    {
         LoginController::requireLogin();
 
         $article = $this->articleManager;
@@ -118,7 +122,8 @@ class ArticleController extends \Core\View
      * @return void
      */
 
-    public function update($id) {
+    public function update(int $id): void
+    {
         LoginController::requireLogin();
 
         $article = $this->articleManager->getById($id);
@@ -141,11 +146,12 @@ class ArticleController extends \Core\View
     /**
      * Display confirmDelete page
      *
-     * @param int id of the article
+     * @param int $id of the article
      *
      * @return void
      */
-    public function confirmDelete($id) {
+    public function confirmDelete(int $id): void
+    {
         LoginController::requireLogin();
 
         parent::renderTemplate('confirmDelete.html.twig', ['id' => $id]);
@@ -157,7 +163,8 @@ class ArticleController extends \Core\View
      * @param int $id
      * @return void
      */
-    public function delete($id) {
+    public function delete(int $id): void
+    {
         LoginController::requireLogin();
 
         $article = $this->articleManager->getById($id);
@@ -180,7 +187,8 @@ class ArticleController extends \Core\View
      * @param int $id
      * @return void
      */
-    public function deleteImage($id) {
+    public function deleteImage(int $id): void
+    {
         $article = $this->articleManager->getById($id);
 
         // Checks whether the logged-in user is the author of a given article,
@@ -194,7 +202,8 @@ class ArticleController extends \Core\View
         }
     }
 
-    private function handleForm($article, $id = null) {
+    private function handleForm($article, $id = null)
+    {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return;
         }
@@ -217,7 +226,7 @@ class ArticleController extends \Core\View
         $previous_img = $article->img;
 
         if (!empty($_FILES['image']['name'])) {
-            $article->img = FileHandler::create_filename($_FILES['image']['name']);
+            $article->img = FileHandler::createFilename($_FILES['image']['name']);
 
             is_file($_SERVER['DOCUMENT_ROOT'] . "/images/" . $previous_img) &&
             unlink($_SERVER['DOCUMENT_ROOT'] . "/images/" . $previous_img);
@@ -231,11 +240,12 @@ class ArticleController extends \Core\View
         }
     }
 
-    private function render($article, $categories, $errors) {
+    private function render($article, $categories, $errors)
+    {
         parent::renderTemplate('form.html.twig', [
-            'article'    => $article,
+            'article' => $article,
             'categories' => $categories,
-            'errors'     => $errors ?? [],
+            'errors' => $errors ?? [],
         ]);
     }
 

@@ -1,7 +1,8 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace Core;
+
 use App\Helpers\Session;
 
 /**
@@ -9,18 +10,20 @@ use App\Helpers\Session;
  * PHP 8.0
  *
  */
-class View {
+class View
+{
 
     /**
      * Render a view template using Twig
      *
-     * @param string $template  The template file
-     * @param array $args  Associative array of data to display in the view (optional)
+     * @param string $template The template file
+     * @param array $args Associative array of data to display in the view (optional)
      *
      * @return void
      */
 
-    public static function renderTemplate(string $template, array $args = []) {
+    public static function renderTemplate(string $template, array $args = []): void
+    {
         static $twig = null;
 
         if ($twig === null) {

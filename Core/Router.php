@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace Core;
 
@@ -8,15 +8,15 @@ namespace Core;
  * PHP 8.0
  *
  */
-
-class Router {
+class Router
+{
 
     /**
      * admin
      *
      * @var string
      */
-    private static $admin;
+    private static string $admin;
 
     /**
      * Run the router.
@@ -28,7 +28,8 @@ class Router {
      * @return void
      */
 
-    public static function run() {
+    public static function run(): void
+    {
         // Get the request URL and split it into an array of parameters.
         $url = $_SERVER['QUERY_STRING'] ?: 'home/index';
         $params = explode('/', $url);

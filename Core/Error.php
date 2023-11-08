@@ -1,39 +1,46 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace Core;
+
+use ErrorException;
+use Exception;
 
 /**
  * Error and exception handler
  *
  * PHP version 8.0
  */
-class Error {
+class Error
+{
 
     /**
      * Error handler. Convert all errors to Exceptions by throwing an ErrorException.
      *
-     * @param int $level  Error level
-     * @param string $message  Error message
-     * @param string $file  Filename the error was raised in
-     * @param int $line  Line number in the file
+     * @param int $level Error level
+     * @param string $message Error message
+     * @param string $file Filename the error was raised in
+     * @param int $line Line number in the file
      *
      * @return void
+     * @throws ErrorException
      */
-    public static function errorHandler($level, $message, $file, $line) {
+    public static function errorHandler(int $level, string $message, string $file, int $line): void
+    {
         if (error_reporting() !== 0) {
-            throw new \ErrorException($message, 0, $level, $file, $line);
+            throw new ErrorException($message, 0, $level, $file, $line);
         }
     }
 
     /**
      * Exception handler.
      *
-     * @param \Exception $exception  The exception
+     * @param Exception $exception The exception
      *
      * @return void
      */
-    public static function exceptionHandler(\Exception $exception) {
+    public static function exceptionHandler(Exception $exception): void
+    {
         // Code is 404 (not found) or 500 (general error)
         $code = $exception->getCode();
         if ($code != 404) {

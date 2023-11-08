@@ -12,15 +12,15 @@ use PDO;
 class CategoryManager extends \Core\DatabaseConnection
 {
 
-    public $id;
-    public $name;
+    public int $id;
+    public int $name;
 
     /**
      * Get all categories
      *
      * @return array
      */
-    public function getCategories()
+    public function getCategories(): array
     {
         $sql = "SELECT * FROM category";
         $stmt = $this->db->query($sql);
@@ -33,7 +33,7 @@ class CategoryManager extends \Core\DatabaseConnection
      * @param int $id
      * @return object|false
      */
-    public function getById($id)
+    public function getById(int $id): object|false
     {
         $sql = "SELECT * FROM category WHERE id =:id";
 
@@ -49,7 +49,7 @@ class CategoryManager extends \Core\DatabaseConnection
      * @param string $category
      * @return bool
      */
-    public function add($category)
+    public function add(string $category): bool
     {
         $sql = "INSERT INTO category (name) VALUES ( :name);";
 
@@ -64,7 +64,7 @@ class CategoryManager extends \Core\DatabaseConnection
      *
      * @return bool
      */
-    public function update()
+    public function update(): bool
     {
         $sql = "UPDATE category SET name =:name
                 WHERE id =:id";
@@ -80,7 +80,7 @@ class CategoryManager extends \Core\DatabaseConnection
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $sql = "DELETE FROM category WHERE id =:id";
 

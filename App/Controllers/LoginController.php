@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers;
 
@@ -13,14 +13,15 @@ use App\Validators\LoginValidator;
  */
 class LoginController extends \Core\View
 {
-    public $errors = [];
+    public array $errors = [];
     private User $user;
     private Session $session;
 
     /**
      * Connstructor initializes the user and the session
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->user = new User();
         $this->session = Session::getInstance();
     }
@@ -30,8 +31,8 @@ class LoginController extends \Core\View
      *
      * @return void
      */
-    public function signIn() {
-
+    public function signIn(): void
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST'
             && $this->session->csrfToken === $_POST['csrfToken']
         ) {
@@ -71,7 +72,8 @@ class LoginController extends \Core\View
      *
      * @return void
      */
-    public function logout() {
+    public function logout(): void
+    {
         $this->session->delete();
         Url::redirect("/article/index");
     }
@@ -81,7 +83,8 @@ class LoginController extends \Core\View
      *
      * @return void
      */
-    public static function requireLogin() {
+    public static function requireLogin()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -96,11 +99,11 @@ class LoginController extends \Core\View
      * Checks whether the logged-in user is the author of a given article,
      *  and redirects to the article index page if not.
      *
-     * @param object data
+     * @param object $data
      * @return void
      */
-    public static function auth($data) {
-
+    public static function auth(object $data)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -115,8 +118,8 @@ class LoginController extends \Core\View
      *
      * @return void
      */
-    public static function isAdmin() {
-
+    public static function isAdmin(): void
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }

@@ -11,6 +11,9 @@ class Session
     public $csrfToken;
     private static $instance;
 
+    /**
+     * @throws \Exception
+     */
     private function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -26,7 +29,7 @@ class Session
         $this->csrfToken = $_SESSION['csrfToken'];
     }
 
-    public static function getInstance()
+    public static function getInstance(): Session
     {
         if (self::$instance == null) {
             self::$instance = new self();

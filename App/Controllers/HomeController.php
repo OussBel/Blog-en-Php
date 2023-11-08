@@ -13,13 +13,14 @@ use App\Validators\ContactFormValidator;
 class HomeController extends \Core\View
 {
 
-    private $errors = [];
+    private array $errors = [];
     private Session $session;
 
     /**
      * Contructor that gets the instance of the session
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->session = Session::getInstance();
     }
 
@@ -28,7 +29,8 @@ class HomeController extends \Core\View
      *
      * @return void
      */
-    public function index() {
+    public function index(): void
+    {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             $this->session->csrfToken === $_POST['csrfToken']) {

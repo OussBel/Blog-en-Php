@@ -2,21 +2,22 @@
 
 namespace App\Helpers;
 
-class Mail {
-
-    public function send(string $name, string $subject, string $email, string $content): void {
+class Mail
+{
+    public function send(string $name, string $subject, string $email, string $content): void
+    {
         $mj = new \Mailjet\Client($_ENV['API_KEY'], $_ENV['API_SECRET'], true, ['version' => 'v3.1']);
         $body = [
             'Messages' => [
                 [
-                    'From'     => [
+                    'From' => [
                         'Email' => "oussama231se@gmail.com",
-                        'Name'  => "monblog",
+                        'Name' => "monblog",
                     ],
-                    'To'       => [
+                    'To' => [
                         [
                             'Email' => "oussama231se@gmail.com",
-                            'Name'  => "monblog",
+                            'Name' => "monblog",
                         ],
                     ],
                     'TextPart' => "Nom/Prénom: $name, Sujet: $subject, Email: $email, Message: $content",

@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Models;
 
@@ -9,23 +9,25 @@ use PDO;
 /**
  * ArticleManager handles CRUD operations of articles
  */
-class ArticleManager extends DatabaseConnection {
+class ArticleManager extends DatabaseConnection
+{
 
-    public $id;
-    public $title;
-    public $subtitle;
-    public $content;
-    public $category_id;
-    public $img;
-    public $user_id;
+    public int $id;
+    public string $title;
+    public string $subtitle;
+    public string $content;
+    public int $category_id;
+    public string $img;
+    public int $user_id;
 
     /**
      * Get all the articles
      *
-     * @return an array if objects
+     * @return array if objects
      */
 
-    public function getAll() {
+    public function getAll(): array
+    {
         $sql = "SELECT id, title, subtitle, content, img, published_at
                 FROM article
                 WHERE published = 1
@@ -36,12 +38,13 @@ class ArticleManager extends DatabaseConnection {
     }
 
     /**
-     * Get an article using its ID
+     * Get article using its $id
      *
      * @return object
      */
 
-    public function getById($id) {
+    public function getById(int $id): object
+    {
 
         $sql = "SELECT a.id, a.title, a.subtitle, a.content,
                 a.published_at, a.img, a.user_id,
@@ -62,10 +65,11 @@ class ArticleManager extends DatabaseConnection {
     /**
      * Add an article
      *
-     * @return bool
+     * @return string|false
      */
 
-    public function add() {
+    public function add(): string|false
+    {
         $sql = "INSERT INTO article (title, subtitle, content, published_at, category_id, img, user_id)
                 VALUES ( :title, :subtitle, :content, NOW(), :category_id, :img, :user_id);";
 
@@ -78,10 +82,11 @@ class ArticleManager extends DatabaseConnection {
     /**
      * Update an article
      *
-     * @return int
+     * @return bool
      */
 
-    public function update() {
+    public function update(): bool
+    {
 
         $sql = "UPDATE article
                 SET title = :title,
@@ -95,11 +100,12 @@ class ArticleManager extends DatabaseConnection {
         $stmt = $this->save($sql);
 
         $stmt->execute();
-        return $stmt->rowCount();
+        return $stmt->rowCount() > 0;
 
     }
 
-    private function save($sql) {
+    private function save($sql)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -127,28 +133,30 @@ class ArticleManager extends DatabaseConnection {
      * Delete an article using its ID
      * @param int $id
      *
-     * @return int
+     * @return bool
      */
 
-    public function delete($id) {
+    public function delete(int $id): bool
+    {
         $sql = "DELETE FROM article WHERE id =:id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
-        return $stmt->rowCount();
+        return $stmt->rowCount() > 0;
     }
 
     /**
      * Delete image
      *
      * @param int $id
-     * @return int
+     * @return bool
      */
-    public function deleteImage($id) {
+    public function deleteImage(int $id): bool
+    {
         $sql = "UPDATE article SET img = NULL WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
-        return $stmt->rowCount();
+        return $stmt->rowCount() > 0;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers\Admin;
 
@@ -14,13 +14,11 @@ use App\Models\CommentManager;
  *
  * This class handles the administration of articles.
  */
-
-class ArticleController extends \Core\View {
+class ArticleController extends \Core\View
+{
 
     private ArticleManager $articleManager;
     private CommentManager $commentManager;
-
-    public array $errors = [];
 
     /**
      * ArticleController constructor.
@@ -28,7 +26,8 @@ class ArticleController extends \Core\View {
      * Initializes a new instance of the ArticleController class.
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->articleManager = new ArticleManager();
         $this->commentManager = new CommentManager();
         LoginController::isAdmin();
@@ -39,7 +38,8 @@ class ArticleController extends \Core\View {
      *
      * @return void
      */
-    public function index() {
+    public function index(): void
+    {
 
         $articles = $this->articleManager->getAll();
 
@@ -52,7 +52,8 @@ class ArticleController extends \Core\View {
      * @param int $id The ID of the article to display.
      * @return void
      */
-    public function show(int $id) {
+    public function show(int $id): void
+    {
 
         $article = $this->articleManager->getById($id);
         $comments = $this->commentManager->getComments($id);
@@ -67,7 +68,7 @@ class ArticleController extends \Core\View {
         }
 
         parent::renderTemplate('articleAdmin.html.twig', [
-            'article'  => $article,
+            'article' => $article,
             'comments' => $comments,
         ]);
     }

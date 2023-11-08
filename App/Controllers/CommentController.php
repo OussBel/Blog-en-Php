@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Controllers;
 
@@ -21,7 +21,8 @@ class CommentController extends \Core\View
     /**
      * This contruct initializes the commentManager and the articleManager
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->commentManager = new CommentManager();
         $this->articleManager = new ArticleManager();
     }
@@ -34,7 +35,8 @@ class CommentController extends \Core\View
      *
      * @return bool Returns true if the comment was added successfully, false otherwise.
      */
-    public function addComment($article_id, $content): int {
+    public function addComment(int $article_id, string $content): bool
+    {
 
         LoginController::requireLogin();
 
@@ -48,7 +50,8 @@ class CommentController extends \Core\View
      *
      * @return void
      */
-    public function updateComment($comment_id) {
+    public function updateComment(int $comment_id): void
+    {
         $error = '';
         $comment = $this->commentManager->getComment($comment_id);
         $article_id = $comment->article_id;
@@ -72,7 +75,7 @@ class CommentController extends \Core\View
         }
 
         parent::renderTemplate('commentForm.html.twig', [
-            'error'   => $error,
+            'error' => $error,
             'content' => $content,
         ]);
     }
@@ -84,8 +87,8 @@ class CommentController extends \Core\View
      *
      * @return void
      */
-    public function deleteComment($comment_id) {
-
+    public function deleteComment(int $comment_id): void
+    {
         $comment = $this->commentManager->getComment($comment_id);
         $article_id = $comment->article_id;
         LoginController::auth($comment);

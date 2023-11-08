@@ -1,12 +1,13 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Models;
 
 use Core\DatabaseConnection;
 use PDO;
 
-class CommentManager extends DatabaseConnection {
+class CommentManager extends DatabaseConnection
+{
 
     /**
      * Get comments for a specific article
@@ -15,7 +16,8 @@ class CommentManager extends DatabaseConnection {
      * @param bool $only_published
      * @return array|false
      */
-    public function getComments($article_id, $only_published = false) {
+    public function getComments(int $article_id, bool $only_published = false): bool|array
+    {
         $sql = "SELECT c.id, c.content, c.published_at, c.published,
                 user.name AS commentator, user.id AS user_id
                 FROM comment  AS c
@@ -41,7 +43,8 @@ class CommentManager extends DatabaseConnection {
      * @param int $article_id
      * @return bool
      */
-    public function add($content, $article_id) {
+    public function add(string $content, int $article_id): bool
+    {
         $sql = "INSERT INTO comment (content, article_id, published_at, user_id)
         VALUES ( :content, :article_id, NOW(), :user_id);";
 
@@ -65,7 +68,8 @@ class CommentManager extends DatabaseConnection {
      * @param int $comment_id
      * @return bool
      */
-    public function update($content, $comment_id) {
+    public function update(string $content, int $comment_id): bool
+    {
         $sql = "UPDATE comment
                 SET content = :content,
                 published_at = NOW()
@@ -84,7 +88,8 @@ class CommentManager extends DatabaseConnection {
      * @param int $comment_id
      * @return object|false
      */
-    public function getComment($comment_id) {
+    public function getComment(int $comment_id): object|bool
+    {
         $sql = "SELECT * FROM comment WHERE id = :comment_id";
 
         $stmt = $this->db->prepare($sql);
@@ -99,7 +104,8 @@ class CommentManager extends DatabaseConnection {
      * @param int $comment_id
      * @return bool
      */
-    public function delete($comment_id) {
+    public function delete(int $comment_id): bool
+    {
         $sql = "DELETE FROM comment WHERE id =:id";
 
         $stmt = $this->db->prepare($sql);
@@ -114,7 +120,8 @@ class CommentManager extends DatabaseConnection {
      * @param int $published
      * @return bool
      */
-    public function publish($comment_id, $published) {
+    public function publish(int $comment_id, int $published): bool
+    {
         $sql = "UPDATE comment SET published = :published
                 WHERE id = :id";
 
