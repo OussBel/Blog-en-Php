@@ -56,7 +56,7 @@ class Router {
         if (class_exists($controllerClass) && method_exists($controllerClass, $action)) {
             // Use reflection to get information about the method
             //  and the number of its arguments.
-            $method = new \ReflectionMethod ($controllerClass, $action);
+            $method = new \ReflectionMethod($controllerClass, $action);
 
             // Determine the number of required parameters for the method.
             $numberOfRequiredParams = $method->getNumberOfRequiredParameters();
@@ -66,7 +66,7 @@ class Router {
 
             // Check if the number of received parameters matches the number of required parameters.
             if ($numberOfParamsReceived !== $numberOfRequiredParams) {
-                return View::renderTemplate('404.html.twig');
+                View::renderTemplate('404.html.twig');
             }
 
             // Instantiate the controller class and call the action method with the parameters.

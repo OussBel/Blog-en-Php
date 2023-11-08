@@ -1,5 +1,5 @@
 <?php
-declare (strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Models;
 
@@ -9,8 +9,7 @@ use PDO;
 /**
  * ArticleManager handles CRUD operations of articles
  */
-class ArticleManager extends DatabaseConnection
-{
+class ArticleManager extends DatabaseConnection {
 
     public $id;
     public $title;
@@ -23,11 +22,10 @@ class ArticleManager extends DatabaseConnection
     /**
      * Get all the articles
      *
-     * @return object
+     * @return an array if objects
      */
 
-    public function getAll()
-    {
+    public function getAll() {
         $sql = "SELECT id, title, subtitle, content, img, published_at
                 FROM article
                 WHERE published = 1
@@ -43,8 +41,7 @@ class ArticleManager extends DatabaseConnection
      * @return object
      */
 
-    public function getById($id)
-    {
+    public function getById($id) {
 
         $sql = "SELECT a.id, a.title, a.subtitle, a.content,
                 a.published_at, a.img, a.user_id,
@@ -65,11 +62,10 @@ class ArticleManager extends DatabaseConnection
     /**
      * Add an article
      *
-     * @return int
+     * @return bool
      */
 
-    public function add()
-    {
+    public function add() {
         $sql = "INSERT INTO article (title, subtitle, content, published_at, category_id, img, user_id)
                 VALUES ( :title, :subtitle, :content, NOW(), :category_id, :img, :user_id);";
 
@@ -85,8 +81,7 @@ class ArticleManager extends DatabaseConnection
      * @return int
      */
 
-    public function update()
-    {
+    public function update() {
 
         $sql = "UPDATE article
                 SET title = :title,
@@ -104,8 +99,7 @@ class ArticleManager extends DatabaseConnection
 
     }
 
-    private function save($sql)
-    {
+    private function save($sql) {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -136,8 +130,7 @@ class ArticleManager extends DatabaseConnection
      * @return int
      */
 
-    public function delete($id)
-    {
+    public function delete($id) {
         $sql = "DELETE FROM article WHERE id =:id";
 
         $stmt = $this->db->prepare($sql);
@@ -151,8 +144,7 @@ class ArticleManager extends DatabaseConnection
      * @param int $id
      * @return int
      */
-    public function deleteImage($id)
-    {
+    public function deleteImage($id) {
         $sql = "UPDATE article SET img = NULL WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);

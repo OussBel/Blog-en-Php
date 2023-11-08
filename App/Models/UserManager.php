@@ -1,5 +1,5 @@
 <?php
-declare (strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Models;
 
@@ -9,16 +9,14 @@ use PDO;
 /**
  * UserManager handles the adding and update of the user as well as login
  */
-class UserManager extends DatabaseConnection
-{
+class UserManager extends DatabaseConnection {
 
     /**
      * Get all users
      *
      * @return array
      */
-    public function getAll()
-    {
+    public function getAll() {
         $sql = "SELECT * FROM user";
 
         $stmt = $this->db->query($sql);
@@ -32,10 +30,9 @@ class UserManager extends DatabaseConnection
      * @param string $name
      * @param string $email
      * @param string $password
-     * @return int
+     * @return bool
      */
-    public function addMember($name, $email, $password)
-    {
+    public function addMember($name, $email, $password) {
         $sql = "INSERT INTO user (name, email, password) VALUES (:name, :email, :password)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
@@ -51,10 +48,9 @@ class UserManager extends DatabaseConnection
      *
      * @param int $id
      * @param string $role
-     * @return int
+     * @return bool
      */
-    public function updateRole($id, $role)
-    {
+    public function updateRole($id, $role) {
         $sql = "UPDATE user SET role =:role
                 WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -71,8 +67,7 @@ class UserManager extends DatabaseConnection
      * @param string $password
      * @return object|false
      */
-    public function login($email, $password)
-    {
+    public function login($email, $password) {
         $sql = "SELECT * FROM user WHERE email =:email";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
