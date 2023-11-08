@@ -202,7 +202,7 @@ class ArticleController extends \Core\View
         }
     }
 
-    private function handleForm($article, $id = null)
+    private function handleForm($article, $id = null): void
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return;
@@ -240,7 +240,7 @@ class ArticleController extends \Core\View
         }
     }
 
-    private function render($article, $categories, $errors)
+    private function render(object $article, array $categories, array $errors): void
     {
         parent::renderTemplate('form.html.twig', [
             'article' => $article,

@@ -6,7 +6,7 @@ namespace App\Validators;
 class ArticleValidator
 {
 
-    public static function validateForm($article, $errors): array
+    public static function validateForm(object $article, array $errors): array
     {
 
         if (empty(trim($article->title))) {

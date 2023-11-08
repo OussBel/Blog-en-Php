@@ -6,7 +6,7 @@ namespace App\Validators;
 class RegisterValidator
 {
 
-    public static function validateForm($name, $email, $password, $confirmPassword): array
+    public static function validateForm(string $name, string $email, string $password, string $confirmPassword): array
     {
         $errors = [];
 

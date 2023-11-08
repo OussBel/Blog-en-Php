@@ -5,7 +5,7 @@ namespace App\Validators;
 class ContactFormValidator
 {
 
-    public static function validateContactForm($name, $subject, $email, $content): array
+    public static function validateContactForm(string $name, string $subject, string $email, string $content): array
     {
 
         $errors = [];

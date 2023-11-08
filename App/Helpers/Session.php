@@ -37,14 +37,14 @@ class Session
         return self::$instance;
     }
 
-    public function create($member)
+    public function create($member): void
     {
         session_regenerate_id(true);
         $_SESSION['id'] = $member->id;
         $_SESSION['role'] = $member->role;
     }
 
-    public function delete()
+    public function delete(): void
     {
         $_SESSION = [];
         $param = session_get_cookie_params();

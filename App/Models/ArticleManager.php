@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace App\Models;
 
 use Core\DatabaseConnection;
+use mysql_xdevapi\SqlStatement;
 use PDO;
 
 /**
@@ -65,10 +66,10 @@ class ArticleManager extends DatabaseConnection
     /**
      * Add an article
      *
-     * @return string|false
+     * @return false|string
      */
 
-    public function add(): string|false
+    public function add(): false|string
     {
         $sql = "INSERT INTO article (title, subtitle, content, published_at, category_id, img, user_id)
                 VALUES ( :title, :subtitle, :content, NOW(), :category_id, :img, :user_id);";
@@ -97,14 +98,14 @@ class ArticleManager extends DatabaseConnection
                 published_at = NOW()
                 WHERE article.id = :id";
 
-        $stmt = $this->save($sql);
+        $stmt = $this->save( $sql);
 
         $stmt->execute();
         return $stmt->rowCount() > 0;
 
     }
 
-    private function save($sql)
+    private function save($sql): bool|\PDOStatement
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();

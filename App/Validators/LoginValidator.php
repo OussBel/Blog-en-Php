@@ -6,7 +6,7 @@ namespace App\Validators;
 class LoginValidator
 {
 
-    public static function validateEmailAndPassword($email, $password): array
+    public static function validateEmailAndPassword(string $email, string $password): array
     {
         $errors = [];
 

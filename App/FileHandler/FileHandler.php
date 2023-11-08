@@ -8,7 +8,7 @@ class FileHandler
 
     public static string $filename;
 
-    public static function createFilename($filename): string
+    public static function createFilename(string $filename): string
     {
         $basename = pathinfo($filename, PATHINFO_FILENAME);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -18,7 +18,7 @@ class FileHandler
         return static::$filename = $filename;
     }
 
-    public static function addImage($upload_path): bool
+    public static function addImage(string $upload_path): bool
     {
         $destination = $upload_path . static::$filename;
         return move_uploaded_file($_FILES['image']['tmp_name'], $destination);
