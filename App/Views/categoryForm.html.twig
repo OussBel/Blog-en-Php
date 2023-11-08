@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <section
+            class="container mt-5 pt-5 d-flex justify-content-center align-items-center"
+    >
+        <form
+                method="post"
+                class="col-10 col-sm-8 col-md-4 needs-validation"
+                novalidate
+        >
+            <div class="form-group">
+                <label for="name" class="form-label">Nom du catégorie:</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        id="name"
+                        value="{{ category_name }}"
+                        required
+                />
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if error is defined %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %}
+            <div class="form-group mt-3">
+                <input type="submit" value="Sauvegarder" class="btn btn-primary col-12"/>
+            </div>
+        </form>
+    </section>
+
+    <script src="{{ baseUrl }}/js/script.js"></script>
+
+{% endblock %}

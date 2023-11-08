@@ -2,6 +2,9 @@
 
 require dirname(__DIR__) . "/vendor/autoload.php";
 
+$dotenv = Dotenv\Dotenv::createImmutable(realpath(__DIR__ . '/..'));
+$dotenv->load();
+
 /**
  * Error and Exception handling
  */

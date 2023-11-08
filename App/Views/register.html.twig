@@ -1,0 +1,85 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <section class="container d-flex flex-column align-items-center">
+        <h3 class="my-5">Créer un compte</h3>
+        <form
+                method="post"
+                class="col-12 col-md-10 col-lg-8 col-xl-6 needs-validation"
+                novalidate
+        >
+            <input type="hidden" name="csrfToken" value="{{ session.csrfToken }}"/>
+
+            <div class="form-floating mb-3">
+                <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        value="{{ name }}"
+                        id="floatingInput"
+                        placeholder="Nom"
+                        required
+                />
+                <label for="floatingInput">Nom</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.name is defined %}
+                <p class="text-danger">{{ errors.name }}</p>
+            {% endif %}
+            <div class="form-floating mb-3">
+                <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ email }}"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        required
+                />
+                <label for="floatingInput">Adresse émail</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.email is defined %}
+                <p class="text-danger">{{ errors.email }}</p>
+            {% endif %}
+            <div class="form-floating mb-3">
+                <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Password"
+                        required
+                />
+                <label for="floatingPassword">Mot de passe</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.password is defined %}
+                <p class="text-danger">{{ errors.password }}</p>
+            {% endif %}
+            <div class="form-floating mb-3">
+                <input
+                        type="password"
+                        name="confirm_password"
+                        class="form-control"
+                        id="confirmPassword"
+                        placeholder="Password"
+                        required
+                />
+                <label for="floatingPassword">Entrez votre mot de passe à nouveau</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.confirmPassword is defined %}
+                <p class="text-danger">{{ errors.confirmPassword }}</p>
+            {% endif %}
+            <div class="form-group">
+                <input
+                        type="submit"
+                        class="btn btn-primary col-12 col-sm-4"
+                        value="Enregistrer"
+                />
+            </div>
+        </form>
+    </section>
+
+    <script src="{{ baseUrl }}/js/script.js"></script>
+{% endblock %}

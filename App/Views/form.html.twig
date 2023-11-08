@@ -1,0 +1,110 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+
+    <section class="container my-5 py-5 d-flex flex-column justify-content-center align-items-center">
+        <form method="post" enctype="multipart/form-data" class="col-12 col-md-10 col-lg-6 needs-validation" novalidate>
+            <div class="form-floating mb-3">
+                <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Titre"
+                        value="{{ article.title }}"
+                        class="form-control"
+                        required
+                />
+                <label for="title" class="form-label">Titre</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.title is defined %}
+                <p class="text-danger">{{ errors.title }}</p>
+            {% endif %}
+
+            <div class="form-floating mb-3">
+                <input
+                        type="text"
+                        id="subtitle"
+                        name="subtitle"
+                        placeholder="Chapo"
+                        value="{{ article.subtitle }}"
+                        class="form-control"
+                        required
+                />
+                <label for="subtitle">Chapo</label>
+                {% if errors.subtitle is defined %}
+                    <p class="text-danger">{{ errors.subtitle }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {% if article.img is not null %}
+                    <img src="{{ baseUrl }}/images/{{ article.img }}" alt="blog" class="col-4 d-block mb-3"/>
+                    <input type="file" name="image" id="image" accept="image/*">
+                    <a href="/article/delete-image/{{ article.id }}" class="btn btn-link text-decoration-none fw-bold">Supprimer </a>
+                {% else %}
+                    <div>
+                        <input type="file" name="image" id="image" accept="image/*">
+                    </div>
+                {% endif %}
+
+                {% if errors.size is defined %}
+                    <p class="text-danger">{{ errors.size }}</p>
+                {% endif %}
+                {% if errors.file_type is defined %}
+                    <p class="text-danger">{{ errors.file_type }}</p>
+                {% endif %}
+                {% if errors.extension is defined %}
+                    <p class="text-danger">{{ errors.extension }}</p>
+                {% endif %}
+
+            </div>
+
+            <div class="form-floating  mb-3">
+      <textarea
+              name="content"
+              id="content"
+              cols="30"
+              rows="10"
+              class="form-control"
+              style="height: 180px"
+              placeholder="Contenu"
+              required
+      >
+{{ article.content }}</textarea
+      >
+                <label for="content">Contenu</label>
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% if errors.content is defined %}
+                <p class="text-danger">{{ errors.content }}</p>
+            {% endif %}
+
+            <label for="categories" class="form-label">Sélectionner une catégorie : </label>
+            <div class="col-12 col-md-6 mb-3">
+                <select name="category_id" id="categories" class="form-select" required>
+                    <option value=""></option>
+                    {% for category in categories %}
+                        <option {{ (article.category_id == category.id ) ? "selected" : "" }}
+                                value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                    <div class="invalid-feedback">Ce champ est requis</div>
+                </select>
+                {% if errors.category_id is defined %}
+                    <p class="text-danger">{{ errors.category_id }}</p>
+                {% endif %}
+            </div>
+            <div class="form-group mt-3">
+                <input
+                        type="submit"
+                        class="btn btn-primary col-12 col-md-2"
+                        value="Ajouter"
+                />
+            </div>
+        </form>
+    </section>
+
+    <script src="{{ baseUrl }}/js/script.js"></script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html.twig" %} {% block content %}
+    <section class="container my-5">
+        <form method="post" class="needs-validation" novalidate>
+            <div class="col-md-6">
+      <textarea
+              name="content"
+              class="form-control"
+              id="content-{{ comment.id }}"
+              cols="30"
+              rows="10"
+              required
+      >
+    {{ content }}</textarea
+      >
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+
+            {% if error is defined %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %}
+            <div class="form-group mt-3">
+                <input
+                        type="submit"
+                        class="btn btn-primary col-12 col-md-2"
+                        value="Soumettre"
+                />
+            </div>
+        </form>
+    </section>
+
+    <script src="{{ baseUrl }}/js/script.js"></script>
+
+{% endblock %}

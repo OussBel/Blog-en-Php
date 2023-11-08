@@ -1,0 +1,42 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <div class="container my-5 py-5">
+        <h3 class="text-center">Categories</h3>
+        <a
+                href="/admin/category/add"
+                class="btn btn-link text-decoration-none fw-bold mb-3"
+        >Ajouter une catégorie</a
+        >
+        <table class="table table-bordered col-sm-10">
+            <thead>
+            <tr>
+                <th>Nom du catégorie</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>
+                        <a
+                                href="/admin/category/update-category/{{ category.id }}"
+                                class="btn btn-link text-decoration-none fw-bold"
+                        >Modifier</a
+                        >
+                    </td>
+                    <td>
+                        <a
+                                href="/admin/category/confirm-delete-category/{{ category.id }}"
+                                class="btn btn-link text-decoration-none fw-bold"
+                        >Supprimer</a
+                        >
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %} 
+
+{% block content %}
+
+    <section class="container my-5 py-5">
+        <h3>Liste des utilisateurs</h3>
+        {% if error is defined %}
+            <div class="text-danger">{{ error }}</div>
+        {% endif %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Nom de l'utilisateur</th>
+                <th>Email</th>
+                <th>Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <select name="role" id="role">
+                                <option value="pending" {{ user.role == "pending" ? "selected":"" }}>En attente de
+                                    validation
+                                </option>
+                                <option value="member" {{ user.role == "member" ? "selected":"" }}>Membre</option>
+                                <option value="admin" {{ user.role == "admin" ?"selected":"" }}>Administrateur</option>
+                            </select>
+                            <div class="form-group mt-3">
+                                <input type="submit" value="Soumettre" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}
+
+

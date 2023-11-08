@@ -1,0 +1,93 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <article class="container mt-5 pt-5">
+        <h3 class="mb-5">{{ article.title }} :</h3>
+        {% if article.img is not null %}
+            <img
+                    src="{{ baseUrl }}/images/{{ article.img }}"
+                    alt="blog"
+                    class="img-fluid col-12 col-md-10 col-lg-8"
+            />
+        {% else %}
+            <img src="{{ baseUrl }}/images/empty.png" alt="blog"/>
+        {% endif %}
+        <h4 class="mt-5 mb-3">{{ article.subtitle }} :</h4>
+        <p class="mb-5">{{ article.content }}</p>
+        <span class="fw-bold">Catégorie : {{ article.category_name }}</span>
+        <span class="fw-bold mx-3 mx-lg-5"
+        >Publié le: {{ article.published_at|date("d/m/Y") }}</span
+        >
+        <span class="fw-bold"> Auteur : {{ article.author }}</span>
+        {% if session.id == article.user_id %}
+            <div class="mt-3">
+                <a
+                        href="/article/update/{{ article.id }}"
+                        class="btn btn-link text-decoration-none fw-bold me-3"
+                >Modifier</a
+                >
+                <a
+                        href="/article/confirm-delete/{{ article.id }}"
+                        class="btn btn-link text-decoration-none fw-bold"
+                >Supprimer</a
+                >
+            </div>
+        {% endif %}
+    </article>
+
+    <div class="container mt-5 rounded mb-5 rounded">
+        {% for comment in comments %}
+            <div class="mb-3 bg-light rounded p-2">
+                <p class="mb-0">{{ comment.content }}</p>
+                <span class="fw-bold">{{ comment.published_at|date("d/m/Y") }}</span>
+                <span class="fw-bold">{{ comment.commentator }}</span>
+                {% if session.id == comment.user_id %}
+                    <div class="mb-2">
+                        <a
+                                href="/comment/update-comment/{{ comment.id }}"
+                                class="text-decoration-none me-2"
+                        >Mettre à jour le commentaire</a
+                        >
+                        <a
+                                href="/comment/delete-comment/{{ comment.id }}"
+                                class="text-decoration-none"
+                        >Supprimer le commentaire</a
+                        >
+                    </div>
+                {% endif %}
+            </div>
+
+        {% endfor %} {% if session.id != 0 %}
+        <form method="post" class="needs-validation" novalidate>
+            <h5 class="my-4">Ajouter un commentaire:</h5>
+
+            <input type="hidden" name="article_id" value="{{ article.id }}"/>
+            <div class="col-md-6">
+      <textarea
+              name="content"
+              id="content-{{ comment.id }}"
+              cols="30"
+              rows="10"
+              class="form-control"
+              required
+      >
+{{ content }}</textarea
+      >
+                <div class="invalid-feedback">Ce champ est requis</div>
+            </div>
+            {% for error in errors %} {% if error is defined %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %} {% endfor %}
+            <div class="form-group mt-3">
+                <input
+                        type="submit"
+                        class="btn btn-primary col-12 col-md-2"
+                        value="Soumettre"
+                />
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <script src="{{ baseUrl }}/js/script.js"></script>
+
+{% endblock %}

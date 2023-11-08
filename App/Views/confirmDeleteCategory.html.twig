@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <div
+            class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center"
+    >
+        <p>Etes-vous sûr que vous voulez supprimer cette catégorie ?</p>
+        <div class="">
+            <a
+                    href="/admin/category/index"
+                    class="btn btn-link text-decoration-none fw-bold"
+            >Annuler</a
+            >
+            <a
+                    href="/admin/category/delete-category/{{ id }}"
+                    class="btn btn-link text-decoration-none fw-bold"
+            >Supprimer</a
+            >
+        </div>
+    </div>
+
+{% endblock %}

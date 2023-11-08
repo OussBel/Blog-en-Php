@@ -1,0 +1,61 @@
+{% extends "layout.html.twig" %} {% block content %}
+
+    <div class="bg-light shadow-sm">
+        <nav class="container py-3">
+            <ul class="d-flex justify-content-between" style="list-style: none">
+                <li>
+                    <a
+                            href="/admin/article/index"
+                            class="btn btn-link text-decoration-none fw-bold"
+                    >Articles</a
+                    >
+                </li>
+                <li>
+                    <a
+                            href="/admin/category/index"
+                            class="btn btn-link text-decoration-none fw-bold"
+                    >Catégories</a
+                    >
+                </li>
+                <li>
+                    <a
+                            href="/admin/user/index"
+                            class="btn btn-link text-decoration-none fw-bold"
+                    >Utilisateurs</a
+                    >
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="container py-5 my-5">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 gx-3 gy-5">
+            {% for article in articles %}
+                <div>
+                    <div class="card card-height shadow">
+                        {% if article.img is not null %}
+                            <img
+                                    src="{{ baseUrl }}/images/{{ article.img }}"
+                                    class="card-img-top img-height"
+                                    alt="blog image"
+                            />
+                        {% else %}
+                            <img
+                                    src="{{ baseUrl }}/images/empty.png"
+                                    class="card-img-top img-height"
+                                    alt="blog image"
+                            />
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.subtitle }}</p>
+                            <a href="/admin/article/show/{{ article.id }}" class="btn btn-primary"
+                            >En savoir plus</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
