@@ -13,7 +13,7 @@ class CategoryManager extends \Core\DatabaseConnection
 {
 
     public int $id;
-    public int $name;
+    public string $name;
 
     /**
      * Get all categories

@@ -6,7 +6,7 @@ namespace App\FileHandler;
 class FileHandler
 {
 
-    public static string $filename;
+    public static string $filename = '';
 
     public static function createFilename(string $filename): string
     {

@@ -59,8 +59,8 @@ class ArticleController extends \Core\View
         $comments = $this->commentManager->getComments($id);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $comment_id = $_POST['id'];
-            $published = $_POST['publish'];
+            $comment_id = (int) $_POST['id'];
+            $published = (int) $_POST['publish'];
 
             if ($this->commentManager->publish($comment_id, $published)) {
                 Url::redirect("/admin/article/show/$id");

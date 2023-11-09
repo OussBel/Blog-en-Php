@@ -13,12 +13,12 @@ use PDO;
 class ArticleManager extends DatabaseConnection
 {
 
-    public int $id;
+    public int $id = 0;
     public string $title;
     public string $subtitle;
     public string $content;
-    public int $category_id;
-    public string $img;
+    public int|null $category_id;
+    public string|null $img = null;
     public int $user_id;
 
     /**
@@ -27,7 +27,7 @@ class ArticleManager extends DatabaseConnection
      * @return array if objects
      */
 
-    public function getAll(): array
+    public function getAll() :array
     {
         $sql = "SELECT id, title, subtitle, content, img, published_at
                 FROM article
@@ -41,10 +41,10 @@ class ArticleManager extends DatabaseConnection
     /**
      * Get article using its $id
      *
-     * @return object
+     * @return object|bool
      */
 
-    public function getById(int $id): object
+    public function getById(int $id): object|bool
     {
 
         $sql = "SELECT a.id, a.title, a.subtitle, a.content,
@@ -66,18 +66,17 @@ class ArticleManager extends DatabaseConnection
     /**
      * Add an article
      *
-     * @return false|string
+     * @return int
      */
 
-    public function add(): false|string
-    {
+    public function add(): int {
         $sql = "INSERT INTO article (title, subtitle, content, published_at, category_id, img, user_id)
                 VALUES ( :title, :subtitle, :content, NOW(), :category_id, :img, :user_id);";
 
         $stmt = $this->save($sql);
 
         $stmt->execute();
-        return $this->id = $this->db->lastInsertId();
+        return $this->id = (int) $this->db->lastInsertId();
     }
 
     /**
@@ -111,7 +110,7 @@ class ArticleManager extends DatabaseConnection
             session_start();
         }
 
-        $this->user_id = $_SESSION['id'];
+        $this->user_id = (int) $_SESSION['id'];
         $stmt = $this->db->prepare($sql);
         $this->id && $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
         $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);

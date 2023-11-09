@@ -21,7 +21,7 @@ class ArticleValidator
             $errors['content'] = 'Le contenu est requis';
         }
 
-        if (empty(trim($article->category_id))) {
+        if (empty(trim((string)$article->category_id))) {
             $errors['category_id'] = 'La catégorie est requise';
         }
 

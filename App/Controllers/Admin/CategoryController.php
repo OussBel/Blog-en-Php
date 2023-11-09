@@ -16,7 +16,7 @@ class CategoryController extends \Core\View
 {
 
     private CategoryManager $categoryManager;
-    private string $error;
+    private string $error = '';
 
     /**
      * CategoryController constructor.

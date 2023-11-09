@@ -15,7 +15,7 @@ use App\Models\UserManager;
 class UserController extends \Core\View
 {
     private UserManager $userManager;
-    private string $error;
+    private string $error = '';
 
     /**
      * UserController constructor.
@@ -38,7 +38,7 @@ class UserController extends \Core\View
         $users = $this->userManager->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $id = $_POST['id'];
+            $id = (int) $_POST['id'];
             $role = $_POST['role'];
 
             if ($this->userManager->updateRole($id, $role)) {

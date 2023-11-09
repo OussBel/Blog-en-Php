@@ -48,7 +48,6 @@ class ArticleController extends \Core\View
 
     public function index(): void
     {
-
         $articles = $this->articleManager->getAll();
 
         parent::renderTemplate('articles.html.twig', ["articles" => $articles]);
@@ -174,7 +173,7 @@ class ArticleController extends \Core\View
         LoginController::auth($article);
 
         if ($article->delete($id)) {
-            file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $article->img) &&
+            is_file($_SERVER['DOCUMENT_ROOT'] . "/images/" . $article->img) &&
             unlink($_SERVER['DOCUMENT_ROOT'] . "/images/" . $article->img);
 
             Url::redirect("/article/index");
@@ -211,7 +210,7 @@ class ArticleController extends \Core\View
         $article->title = $_POST['title'];
         $article->subtitle = $_POST['subtitle'];
         $article->content = $_POST['content'];
-        $article->category_id = $_POST['category_id'];
+        $article->category_id = (int) $_POST['category_id'];
 
         // Validate the input of the form
 
@@ -223,7 +222,7 @@ class ArticleController extends \Core\View
             return;
         }
 
-        $previous_img = $article->img;
+        $previous_img = $article->img ?? '';
 
         if (!empty($_FILES['image']['name'])) {
             $article->img = FileHandler::createFilename($_FILES['image']['name']);
