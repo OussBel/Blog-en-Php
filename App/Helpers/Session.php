@@ -31,7 +31,7 @@ class Session
 
     public static function getInstance(): Session
     {
-        if (self::$instance == null) {
+        if (self::$instance === null) {
             self::$instance = new self();
         }
         return self::$instance;

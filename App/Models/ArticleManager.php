@@ -118,7 +118,7 @@ class ArticleManager extends DatabaseConnection
         $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
         !$this->id && $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
 
-        if ($this->img == null) {
+        if ($this->img === null) {
             $stmt->bindValue(':img', NULL, PDO::PARAM_NULL);
         } else {
             $stmt->bindValue(':img', $this->img, PDO::PARAM_STR);
