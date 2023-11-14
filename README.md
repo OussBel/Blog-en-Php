@@ -13,6 +13,7 @@ Blog en Php - projet 5 de la formation openclassrooms
 5- créez vos tableaux dans mysql: article, category, comment, user.
 
 6- Pour vous connecter:
+
     Compte administrateur: admin@phpblog.fr              mot de passe: adminadmin
 
     Compte utilisateur: user@phpblog.fr                  mot de passe: useruser
