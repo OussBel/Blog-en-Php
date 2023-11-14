@@ -1,0 +1,228 @@
+@startuml
+
+class DatabaseConnection {
+    - db : PDO
+
+    + __construct()
+}
+
+class ArticleManager {
+    - id
+    - title
+    - subtitle
+    - content
+    - category_id
+    - img
+    - user_id
+    - published_at
+    - published
+
+    + getAll()
+    + getById(int)
+    + add()
+    + update()
+    + delete(int)
+    + deleteImage(int)
+    - save(string)
+}
+
+class UserManager {
+
+    - id
+    - name
+    - email
+    - password
+    - role
+
+    + getAll() : array
+    + addMember(string, string, string) : bool
+    + updateRole(int, string) : bool
+    + login(string, string) : object|bool
+}
+
+
+
+class CategoryManager {
+    - id
+    - name
+
+    + getCategories() : array
+    + getById(int) : object|bool
+    + add(string) : bool
+    + update() : bool
+    + delete() : bool
+}
+
+class CommentManager {
+
+    - id
+    - content
+    - published_at
+    - published
+    - article_id
+    - user_id
+
+
+    + getComments(int, bool) : bool|array
+    + add(string, int) : bool
+    + update(string, int) : bool
+    + getComment(int) : object|bool
+    + delete(int) : bool
+    + publish(int, int) : bool
+}
+
+
+
+class AdminArticleController {
+    - articleManager : ArticleManager
+    - commentManager : CommentManager
+
+    + __construct()
+    + index() : void
+    + show(int) : void
+}
+
+class UserController {
+    - userManager : UserManager
+    - error : string
+
+    + __construct()
+    + index() : void
+    + validate() : void
+}
+
+class CategoryController {
+    - categoryManager : CategoryManager
+    - error : string
+
+    + __construct()
+    + index() : void
+    + add() : void
+    + updateCategory(int) : void
+    + confirmDeleteCategory(int) : void
+    + deleteCategory(int) : void
+}
+
+class ArticleController {
+    - articleManager : ArticleManager
+    - categoryManager : CategoryManager
+    - commentsManager : CommentManager
+    - commentController : CommentController
+    - errors : array
+
+    + __construct()
+    + index() : void
+    + show(int) : void
+    + add() : void
+    + update(int) : void
+    + confirmDelete(int) : void
+    + delete(int) : void
+    + deleteImage(int) : void
+    - handleForm(object, int)
+    - render(object, array, array)
+}
+
+class CommentController {
+    - commentManager : CommentManager
+    - articleManager : ArticleManager
+
+    + __construct()
+    + addComment(int, string) : bool
+    + updateComment(int) : void
+    + deleteComment(int) : void
+}
+
+class HomeController {
+    - errors : array
+    - session : Session
+
+    + __construct()
+    + index() : void
+}
+
+class LoginController {
+    - errors : array
+    - user : User
+    - session : Session
+
+    + __construct()
+    + signIn() : void
+    + logout() : void
+    + {static} requireLogin()
+    + {static} auth(object)
+    + {static} isAdmin()
+}
+
+class RegisterController {
+    - user : UserManager
+    - session : Session
+    - errors : array
+
+    + __construct()
+    + addMember() : void
+}
+
+class Session {
+    - id
+    - role
+    - csrfToken
+    - {static} instance : Session
+
+    - __construct()
+    + {static} getInstance() : Session
+    + create(object) : void
+    + delete() : void
+}
+
+class View {
+    + {static} renderTemplate(string, array) : void
+}
+
+
+AdminArticleController --> ArticleManager
+AdminArticleController --> CommentManager
+UserController --> UserManager
+CategoryController --> CategoryManager
+
+
+ArticleManager --|> DatabaseConnection
+UserManager --|> DatabaseConnection
+CategoryManager --|> DatabaseConnection
+CommentManager --|> DatabaseConnection
+
+AdminArticleController --|> View
+UserController --|> View
+CategoryController --|> View
+
+ArticleController --> ArticleManager
+ArticleController --> CategoryManager
+ArticleController --> CommentManager
+ArticleController --> CommentController
+ArticleController --|> View
+
+CommentController --> CommentManager
+CommentController --> ArticleManager
+CommentController --|> View
+
+HomeController --> Session
+HomeController --|> View
+
+LoginController --> UserManager
+LoginController --> Session
+LoginController --|> View
+
+RegisterController --> UserManager
+RegisterController --> Session
+RegisterController --|> View
+
+UserManager "1" -down- "0..*" ArticleManager
+CategoryManager "1" -down- "0..*" ArticleManager
+UserManager "1" -down- "0..*" CommentManager
+ArticleManager "1" -down- "0..*" CommentManager
+
+
+
+
+}
+
+@enduml

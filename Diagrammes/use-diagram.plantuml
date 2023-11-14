@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+actor Visiteur
+actor Membre
+actor Administrateur
+
+rectangle System {
+    usecase "Voir les  Articles" as UC1
+    usecase "Commenter les Articles" as UC2
+    usecase "Enregistrer/Se connecter" as UC3
+    usecase "Gérer les  Articles" as UC4
+    usecase "Gérer les  Commentaires" as UC5
+    usecase "Gérer les  Utilisateurs" as UC6
+    usecase "Gérer les Categories" as UC7
+}
+
+Visiteur --> UC1
+Visiteur --> UC3
+
+Membre --> UC1
+Membre --> UC2
+Membre --> UC3
+Membre --> UC4
+
+Administrateur --> UC4
+Administrateur --> UC5
+Administrateur --> UC6
+Administrateur --> UC7
+@enduml

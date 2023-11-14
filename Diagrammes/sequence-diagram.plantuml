@@ -1,0 +1,28 @@
+@startuml
+actor Utilisateur
+participant "ArticleController" as ArticleCtrl
+participant "CommentController" as CommentCtrl
+participant "CommentManager" as CommentMgr
+participant "View" as View
+
+Utilisateur -> ArticleCtrl: Soumettre comment (articleId, commentData)
+activate ArticleCtrl
+
+ArticleCtrl -> CommentCtrl: addComment(articleId, commentData)
+activate CommentCtrl
+
+CommentCtrl -> CommentMgr: add(commentData)
+activate CommentMgr
+CommentMgr --> CommentCtrl: Statut du commentaire ajouté
+deactivate CommentMgr
+
+CommentCtrl --> ArticleCtrl: Status de l'opération
+deactivate CommentCtrl
+
+ArticleCtrl -> View:rendre(réponse)
+activate View
+View --> Utilisateur: Afficher la page de l'article mis à jour
+deactivate View
+
+deactivate ArticleCtrl
+@enduml
