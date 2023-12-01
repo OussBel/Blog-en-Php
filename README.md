@@ -14,6 +14,7 @@ Blog en Php - projet 5 de la formation openclassrooms
 6- Ajoutez ces deux clés dans le dossier .env : API_KEY (clé public), API_SECRET (clé privée) et modifiez le fichier App/Helpers/Mail.php en mettant votre émail ainsi que votre API_KEY et API_SECRET.
 
 7- Configurez votre xampp: Ouvrez votre xampp et configurer le fichier: Apache(httpd.conf), a l'intérieur, modifier le documentRoot et le documentDirectory comme ceci: 
+  
    DocumentRoot "C:/xampp/htdocs/Blog-en-Php/Public"
    <Directory "C:/xampp/htdocs/Blog-en-Php/Public">
 
