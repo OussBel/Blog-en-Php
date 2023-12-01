@@ -15,9 +15,7 @@ Blog en Php - projet 5 de la formation openclassrooms
 
 7- Configurez votre xampp: Ouvrez votre xampp et configurer le fichier: Apache(httpd.conf), a l'intérieur, modifier le documentRoot et le documentDirectory comme ceci: 
   
-   DocumentRoot "C:/xampp/htdocs/Blog-en-Php/Public"
-   
-   <Directory "C:/xampp/htdocs/Blog-en-Php/Public">
+   DocumentRoot "C:/xampp/htdocs/Blog-en-Php/Public"                    <Directory "C:/xampp/htdocs/Blog-en-Php/Public">
 
 8- Importez le fichier de base de données php_blog.sql.
 
