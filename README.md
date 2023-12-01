@@ -15,7 +15,7 @@ Blog en Php - projet 5 de la formation openclassrooms
 
 7- Ajoutez ces deux clés dans le dossier .env : API_KEY (clé public), API_SECRET (clé privée) et modifiez le fichier App/Helpers/Mail.php en mettant votre émail du compte mailjet.
 
-8- Configurez votre xampp: Ouvrez votre xampp et configurer le fichier: Apache(httpd.conf), a l'intérieur, modifier le documentRoot et le documentDirectory comme ceci: 
+8- Configurez votre xampp: Ouvrez votre xampp et configurer le fichier: Apache(httpd.conf), a l'intérieur, modifier le documentRoot et le Directory comme ceci: 
   
    DocumentRoot "C:/xampp/htdocs/Blog-en-Php/Public"                                           
    
@@ -24,7 +24,9 @@ Blog en Php - projet 5 de la formation openclassrooms
 
 9- Ouvrez votre xampp et appuyer sur start pour Apache et MYSQL.
 
-10- Pour vous connecter:
+10 - Tapez : http://localhost  pour afficher le site web.
+
+11- Pour vous connecter:
 
     Compte administrateur: admin@phpblog.fr              mot de passe: adminadmin
 
