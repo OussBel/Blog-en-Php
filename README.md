@@ -9,7 +9,7 @@ Blog en Php - projet 5 de la formation openclassrooms
 
 4- Importez le fichier de base de données php_blog.sql.
 
-5- Créez dans le dossier root: .env et remplissez les paramètres de votre base de données:DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, SHOW_ERRORS.
+5- Créez dans le dossier:xampp/htdocs/Blog-en-Php: .env et remplissez les paramètres de votre base de données:DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, SHOW_ERRORS.
 
 6- Créez un compte sur mailjet (service d'envoi des emails), communiquez votre adresse émail et génerez une clé API public et une clé API privé.
 
